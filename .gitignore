@@ -1,0 +1,13 @@
+# Directories
+node_modules/
+
+# Logs
+logs
+*.log
+
+# npm
+npm-debug.log*
+.npm
+
+*.tgz
+

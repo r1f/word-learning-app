@@ -1,0 +1,22 @@
+{
+  "name": "word-learning-app",
+  "version": "1.0.0",
+  "description": "App for learning language based on dictionaries",
+  "main": "main.js",
+  "scripts": {
+    "test": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r1f/word-learning-app.git"
+  },
+  "author": "r1f",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/r1f/word-learning-app/issues"
+  },
+  "homepage": "https://github.com/r1f/word-learning-app#readme",
+  "devDependencies": {
+    "electron": "^26.2.3"
+  }
+}

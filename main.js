@@ -1,30 +1,35 @@
 const path = require('path');
 const {app, BrowserWindow} = require('electron');
 
-const is_mac = process.platform === 'darwin'
+const isMac = process.platform === 'darwin';
+const isDev = process.env.NODE_ENV !== 'production';
 
-function create_main_window(){
-    const main_window = new BrowserWindow({
+function createMainWindow(){
+    const mainWindow = new BrowserWindow({
         title: 'Word Learning',
-        width: 500,
+        width: isDev ? 1000 : 500,
         height: 500
     });
+    
+    if (isDev) {
+        mainWindow.webContents.openDevTools();
+    }
 
-    main_window.loadFile(path.join(__dirname, './app/index.html'));
+    mainWindow.loadFile(path.join(__dirname, './app/index.html'));
 }
 
 app.whenReady().then(() => {
-    create_main_window();
+    createMainWindow();
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
-            create_main_window();
+            createMainWindow();
         }
     });
 });
 
 app.on('window-all-closed', () => {
-    if (!is_mac) {
+    if (!isMac) {
         app.quit();
     }
 });

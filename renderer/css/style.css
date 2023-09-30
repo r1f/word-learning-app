@@ -50,6 +50,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 :root {
@@ -73,6 +74,7 @@ body {
   height: 100vh;
   background: var(--body-color);
   transition: var(--tran-05);
+  overflow-x: hidden;
 }
 
 body.dark {
@@ -298,18 +300,34 @@ body.dark .switch::before {
 }
 
 .home {
-  position: relative;
+  position:relative;
   height: 100vh;
   left: 250px;
   width: calc(100% - 250px);
   transition: var(--tran-05);
+
+  word-wrap: break-word;
 }
 
 .home .text {
   font-weight: 500;
-  font-size: 30px;
+  font-size: 5vh;
+  margin-left: auto;
+  margin-right: auto;
   color: var(--text-color);
-  padding: 8px 40px;
+  border: solid 0.1em;
+  padding: 20vh 40px;
+}
+
+.home .box-items{
+  color: blue;
+  border: solid 0.1em;
+}
+
+.home .box-items .box-item{
+  color: red;
+  border: solid 0.1em;
+  display: inline-table;
 }
 
 .sidebar.close ~ .home {

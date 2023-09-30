@@ -8,13 +8,7 @@
     <title>Word Learning</title>
 </head>
 <body>
-    
-    <!-- <div id="main">
-        <button class="button">New</button>
-        <button class="button">Load</button>
-    </div> -->
-
-    <nav class='sidebar close'>
+      <nav class='sidebar close'>
         <header>
           <div class='image-text'>
             <span class='image'>
@@ -34,25 +28,25 @@
           <div class='menu'>
             <ul class='menu-links'>
               <li class='nav-link'>
-                <a href="#">
+                <a href="#home">
                   <i class='bx bx-home-alt icon'></i>
                   <span class='text nav-text'>Home</span>
                 </a>
               </li>
               <li class='nav-link'>
-                <a href="#">
+                <a href="#dictionaries">
                   <i class='bx bx-book icon'></i>
                   <span class='text nav-text'>Dictionaries</span>
                 </a>
               </li>
               <li class='nav-link'>
-                <a href="#">
+                <a href="#statistics">
                   <i class='bx bx-bar-chart-alt-2 icon'></i>
                   <span class='text nav-text'>Statistics</span>
                 </a>
               </li>
               <li class='nav-link'>
-                <a href="#">
+                <a href="#tests">
                   <i class='bx bx-pencil icon'></i>
                   <span class='text nav-text'>Tests</span>
                 </a>
@@ -61,6 +55,14 @@
           </div>
     
           <div class='bottom-content'>
+
+            <li class='nav-link'>
+              <a href="#">
+                <i class='bx bx-cog icon'></i>
+                <span class='text nav-text'>Settings</span>
+              </a>
+            </li>
+
             <li class='mode'>
               <div class='moon-sun'>
                 <a href="#">
@@ -76,9 +78,49 @@
           </div>
         </div>
       </nav>
-      <section class="home">
-        <div class="text">Welcome</div>
+
+      <section class="home" id="home">
+        <div class="text">
+          Welcome
+        </div>
+
+        <div class="text" id="dictionaries">
+          dictionaries
+          <div class="box-items">
+
+            <!-- <div class="box-item">
+              <h1 class='dictionary-name'>Dict Name</h1>
+              <p><button>Add</button></p>
+            </div>
+
+            <div class="box-item">
+              <h1 class='dictionary-name'>Dict Name</h1>
+              <p><button>Add</button></p>
+            </div> -->
+            
+          </div>
+        </div>
+
+        <div class="text" id="statistics">
+          Statistics
+          <div class="box-items">
+
+            <div class="box-item">
+              <h1>Dict Name</h1>
+              <p><button>Add</button></p>
+            </div>
+
+            <div class="box-item">
+              <h1>Dict Name</h1>
+              <p><button>Add</button></p>
+            </div>
+            
+          </div>
+        </div>
+        <div class="text" id="tests">
+          Tests
+        </div>
       </section>
-      <script src="../javaScript/sidebar.js"></script>
+      <script src="../js/sidebar.js"></script>
 </body>
 </html>

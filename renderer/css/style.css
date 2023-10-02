@@ -1,16 +1,14 @@
 .button {
   background-color: #fff;
   border: 0 solid #e2e8f0;
-  border-radius: 1.5rem;
+  border-radius: 1rem;
   box-sizing: border-box;
   color: #0d172a;
   cursor: pointer;
   display: inline-block;
-  font-family: "Basier circle",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 400;
   line-height: 1;
-  padding: 1rem 1.6rem;
   text-align: center;
   text-decoration: none #0d172a solid;
   text-decoration-thickness: auto;
@@ -21,7 +19,9 @@
   touch-action: manipulation;
   position: relative;
   text-align: center;
-  margin-right: 4rem;
+
+  font-size: 1rem;
+  padding: 1rem 1rem;
 }
 
 .button:hover {
@@ -29,19 +29,11 @@
   color: #fff;
 }
 
-/* @media (min-width: 768px) {
+@media (min-width: 768px) {
   .button {
-    font-size: 1.125rem;
+    font-size: 1rem;
     padding: 1rem 2rem;
   }
-} */
-
-#main {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    top: 50%;
-    left: 50%;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
@@ -51,6 +43,9 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+  &::-webkit-scrollbar{
+    display: none;
+  }
 }
 
 :root {
@@ -230,6 +225,12 @@ body.dark .sidebar header .toggle {
   justify-content: space-between;
 }
 
+.sidebar.close ~ .home {
+  left: 88px;
+  height: 100vh;
+  width: calc(100% - 88px);
+}
+
 .menu-bar .mode {
   position: relative;
   border-radius: 6px;
@@ -311,27 +312,173 @@ body.dark .switch::before {
 
 .home .text {
   font-weight: 500;
-  font-size: 5vh;
+  font-size: 4vh;
   margin-left: auto;
   margin-right: auto;
   color: var(--text-color);
   border: solid 0.1em;
-  padding: 20vh 40px;
+  padding: 10vh 40px;
 }
 
-.home .box-items{
-  color: blue;
-  border: solid 0.1em;
+.cards {
+  margin: 0 auto;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: auto;
+  gap: 20px;
+  padding-top: 30px;
+
+  border: solid 0.2em;
 }
 
-.home .box-items .box-item{
-  color: red;
-  border: solid 0.1em;
-  display: inline-table;
+.cards * {
+  box-sizing: border-box;
 }
 
-.sidebar.close ~ .home {
-  left: 88px;
-  height: 100vh;
-  width: calc(100% - 88px);
+.card-name {
+  line-height: 1.5;
+  font-size: 0.9em;
+  color: var(--text-color);
+  padding: 15px;
+  background: #fafafa;
+  /* border-right: 2px solid #333333; */
+  /* border-left: 2px solid #333333; */
 }
+
+.card-name > p:first-of-type {
+  margin-top: 0;
+}
+
+.card-name > p:last-of-type {
+  margin-bottom: 0;
+}
+
+.card-btns {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #555555;
+  background: #eeeeee;
+  font-size: 0.8em;
+  /* border-bottom: 2px solid #333333; */
+  /* border-right: 2px solid #333333;  */
+  /* border-left: 2px solid #333333; */
+}
+
+.card-btns i {
+  font-size: 0.5em;
+  margin-right: 8px;
+}
+
+.card-add{
+  height: 100%;
+}
+
+.add-dict-btn{
+  display: inline-flex;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  font-size: 32px;
+  cursor: pointer;
+}
+
+.add-dict-btn:hover {
+  background-color: #1e293b;
+  color: #fff;
+}
+
+
+.add-dict-btn-icon{
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  font-size: 1.5em;
+}
+
+
+/* Popup */
+
+.popup-add-dict{
+  position: absolute;
+  top: -150%;
+  left: 50%;
+  opacity: 0;
+  transform: translate(-50%,-50%) scale(1.25);
+  width: 380px;
+  padding: 20px 30px;
+  background: burlywood;
+  box-shadow: 100px 100px 100px 100px rgba(0, 0, 0, 0.15);
+  transition: top 0ms ease-in-out 200ms,
+              opacity 200ms ease-in-out 0ms,
+              transform 200ms ease-in-out 0ms;
+}
+
+.popup-add-dict.active{
+  top:50%;
+  opacity: 1;
+  transform: translate(-50%,-50%) scale(1);
+  transition: top 0ms ease-in-out 0ms,
+              opacity 200ms ease-in-out 0ms,
+              transform 200ms ease-in-out 0ms;
+}
+
+.popup-close-btn{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 15px;
+  height: 15px;
+  background: #888;
+  color: #eee;
+  text-align: center;
+  line-height: 15px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.popup-add-dict .popup-form h1{
+  text-align: center;
+  color:#222;
+  margin: 10px 0px 20px;
+  font-size: 25px;
+}
+
+.popup-add-dict .popup-form .popup-form-element{
+  margin: 15px 0px;
+}
+
+.popup-add-dict .popup-form .popup-form-element label{
+  font-size: 14px;
+  color: #222;
+}
+
+.popup-add-dict .popup-form .popup-form-element input[type="text"]{
+  margin-top: 5px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  border: 1px solid #aaa;
+}
+
+.popup-add-dict .popup-form .popup-form-element button{
+  width: 100%;
+  height: 40px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: #222;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #fff;
+}
+

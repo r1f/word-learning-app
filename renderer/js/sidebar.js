@@ -6,9 +6,13 @@ const modeText = document.querySelector(".mode-text");
 
 
 const fs = require('fs');
+const { type } = require('os');
 const path = require('path');
+const { electron } = require('process');
 
 const dictionaryPath = "./dictionaries/";
+
+let dictionaryName = "";
 
 
 toggle.addEventListener("click", () => {
@@ -32,12 +36,25 @@ document.querySelector(".popup-add-dict .popup-add-btn").addEventListener("click
   document.querySelector(".popup-add-dict").classList.remove("active")
 })
 
+document.querySelector(".popup-edit-dict .popup-close-btn").addEventListener("click", function(){
+  document.querySelector(".popup-edit-dict").classList.remove("active")
+})
+
 function getDictionaryName(){
   document.querySelector(".popup-add-dict").classList.add("active");
 }
 
+function getEditForm(dictID){
+  document.querySelector(".popup-edit-dict").classList.add("active");
 
-function getSorted(){
+  dictionaryName = document.getElementById(dictID).childNodes[0].nodeValue;
+
+  document.getElementById("popup-edit-dict-h1").innerHTML = `Add a new word in ${dictionaryName}`;
+  
+  return dictionaryName;
+} 
+
+function getSortedDictionary(){
   directoryContent = fs.readdirSync(dictionaryPath);
 
   let files = directoryContent.filter((filename) => {
@@ -56,7 +73,7 @@ function getSorted(){
 
 
 function loadDictionary(){
-  const files = getSorted();
+  const files = getSortedDictionary();
   const box = document.getElementsByClassName("cards");
 
   for (file in files){
@@ -66,10 +83,10 @@ function loadDictionary(){
     
     dictionaryItem.innerHTML = `
       <div class="card-name">
-      <p>${files[file]}</p>
+      <p id="dictID_${file}">${files[file]}</p>
       </div>
       <div class="card-btns">
-      <button class="button">Edit</button>
+      <button class="button" id="dictID_${file}" onclick="getEditForm(this.id)">Edit</button>
       <button class="button">Learn</button>
       </div>`;
 
@@ -98,4 +115,58 @@ function reloadDictionary(){
   }
 
   loadDictionary();
+}
+
+function addInDictionary(){
+  let dictInfo = getInputValuesByClassName("dict-info");
+
+  fs.appendFile(dictionaryPath + dictionaryName, dictInfo.join("/") + "\n", function (err) {
+    if (err) console.log(err);
+    console.log('Updated!');
+  }); 
+
+  clearInput("dict-info");
+}
+
+function clearInput(className){
+  const elements = document.getElementsByClassName(className);
+
+  for (let element in elements){
+    elements[element].value = "";
+  }
+}
+
+function getInputValuesByClassName(className){
+  let inputValues = document.getElementsByClassName(className);
+  let values = [];
+
+  for (let i = 0; i < inputValues.length; i++){
+    values.push(inputValues[i].value);
+  }
+  return values
+}
+
+function isInputValuesEmpty(className){
+  let inputValues = getInputValuesByClassName(className);
+  let emptyArray = Array(inputValues.length).fill("");
+
+  return (JSON.stringify(inputValues) === JSON.stringify(emptyArray)) ? true : false; 
+}
+
+
+function previousBtn(){
+  
+  let values = getInputValuesByClassName("dict-info");
+
+  console.log(values);
+
+
+  let content = fs.readFileSync(dictionaryPath + dictionaryName).toString().split('\n');
+
+  console.log(content);
+
+}
+
+function nextBtn(){
+  return 0;
 }

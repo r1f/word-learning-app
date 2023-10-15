@@ -445,23 +445,23 @@ body.dark .switch::before {
   cursor: pointer;
 }
 
-.popup-add-dict .popup-form h1{
+.popup-form h1{
   text-align: center;
   color:#222;
   margin: 10px 0px 20px;
   font-size: 25px;
 }
 
-.popup-add-dict .popup-form .popup-form-element{
+.popup-form-element{
   margin: 15px 0px;
 }
 
-.popup-add-dict .popup-form .popup-form-element label{
+.popup-form-element label{
   font-size: 14px;
   color: #222;
 }
 
-.popup-add-dict .popup-form .popup-form-element input[type="text"]{
+.popup-form-element input[type="text"]{
   margin-top: 5px;
   display: block;
   width: 100%;
@@ -470,8 +470,8 @@ body.dark .switch::before {
   border: 1px solid #aaa;
 }
 
-.popup-add-dict .popup-form .popup-form-element button{
-  width: 100%;
+.popup-form-element button{
+  width: 49%;
   height: 40px;
   border: none;
   outline: none;
@@ -480,5 +480,33 @@ body.dark .switch::before {
   border-radius: 10px;
   cursor: pointer;
   color: #fff;
+  position: relative;
 }
 
+
+
+
+
+.popup-edit-dict{
+  position: absolute;
+  top: -150%;
+  left: 50%;
+  opacity: 0;
+  transform: translate(-50%,-50%) scale(1.25);
+  width: 380px;
+  padding: 20px 30px;
+  background: burlywood;
+  box-shadow: 100px 100px 100px 100px rgba(0, 0, 0, 0.15);
+  transition: top 0ms ease-in-out 200ms,
+              opacity 200ms ease-in-out 0ms,
+              transform 200ms ease-in-out 0ms;
+}
+
+.popup-edit-dict.active{
+  top:50%;
+  opacity: 1;
+  transform: translate(-50%,-50%) scale(1);
+  transition: top 0ms ease-in-out 0ms,
+              opacity 200ms ease-in-out 0ms,
+              transform 200ms ease-in-out 0ms;
+}

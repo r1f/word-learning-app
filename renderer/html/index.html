@@ -63,6 +63,7 @@
                 <span class='switch'></span>
               </div>
             </li>
+
           </div>
         </div>
       </nav>
@@ -90,7 +91,6 @@
         <div class="popup-form">
           <h1>Create New Dictionary</h1>
           <div class="popup-form-element">
-            <label for="dict-name">Name</label>
             <input type="text" id="dict-name" placeholder="Enter dictionary name">
           </div>
           <div class="popup-form-element">
@@ -98,8 +98,30 @@
           </div>
         </div>
       </div>
+
+      <div class="popup-edit-dict">
+        <div class="popup-close-btn">&times;</div>
+        <div class="popup-edit-form">
+          <h1 id="popup-edit-dict-h1"></h1>
+          <div class="popup-form-element">
+            <button onclick ="previousBtn()" class="popup-add-btn">Previous</button>
+            <button class="popup-add-btn">Next</button>
+          </div>
+          <div class="popup-form-element">
+            <input type="text" class="dict-info" placeholder="Enter an original word">
+            <input type="text" class="dict-info" placeholder="Enter a translation">
+            <input type="text" class="dict-info" placeholder="Enter a definition">
+            <input type="text" class="dict-info" placeholder="Enter a context">
+            <input type="text" class="dict-info" placeholder="Enter a part of speech">
+            <!-- <input type="text" class="dict-info" placeholder="Drag a photo"> -->
+          </div>
+          <div class="popup-form-element">
+            <button onclick="addInDictionary()" class="popup-add-btn">Add</button>
+            <button onclick="" class="popup-add-btn">Change</button>
+          </div>
+        </div>
+      </div>
+      
       <script src="../js/sidebar.js"></script>
 </body>
 </html>
-
-<!-- <box-icon name='book-add'></box-icon> -->

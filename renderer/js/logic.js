@@ -153,20 +153,50 @@ function isInputValuesEmpty(className){
   return (JSON.stringify(inputValues) === JSON.stringify(emptyArray)) ? true : false; 
 }
 
+function isDictionaryEmpty(){
+  return (fs.statSync(dictionaryPath + dictionaryName).size == 0) ? true : false;
+}
 
 function previousBtn(){
-  
-  let values = getInputValuesByClassName("dict-info");
+  let inputValues = getInputValuesByClassName("dict-info");
 
-  console.log(values);
+  let dictContent = fs.readFileSync(dictionaryPath + dictionaryName).toString().split('\n');
 
+  if (!isDictionaryEmpty()) {
+    let dictLine = null;
 
-  let content = fs.readFileSync(dictionaryPath + dictionaryName).toString().split('\n');
+    if (isInputValuesEmpty("dict-info"))
+    {
+      dictLine = Object.values(dictContent)[dictContent.length - 2];
+    }
+    else
+    {
+      dictLine = Object.values(dictContent)[getDictionaryWordIndex(dictContent, inputValues) - 1];
+    }
+    setInput(dictLine.split('/'));
+  }
+}
 
-  console.log(content);
+function getDictionaryWordIndex(dictContent, inputValues){
+  return dictContent.indexOf(inputValues.join("/"));
+}
 
+function setInput(dictLine){
+  let inputValues = document.getElementsByClassName('dict-info');
+  for(line in dictLine){
+    inputValues[line].value = dictLine[line];
+  }
 }
 
 function nextBtn(){
-  return 0;
+  let inputValues = getInputValuesByClassName("dict-info");
+
+  let dictContent = fs.readFileSync(dictionaryPath + dictionaryName).toString().split('\n');
+
+  if ((!isDictionaryEmpty()) && (!isInputValuesEmpty("dict-info"))) {
+    let dictLine = null;
+
+    dictLine = Object.values(dictContent)[getDictionaryWordIndex(dictContent, inputValues) + 1];
+    setInput(dictLine.split('/'));
+  }
 }

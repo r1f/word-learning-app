@@ -13,6 +13,7 @@ const { electron } = require('process');
 const dictionaryPath = "./dictionaries/";
 
 let dictionaryName = "";
+let dictionaryWordIndex = 0;
 
 
 toggle.addEventListener("click", () => {
@@ -30,6 +31,7 @@ modeSwitch.addEventListener("click", () => {
 
 document.querySelector(".popup-add-dict .popup-close-btn").addEventListener("click", function(){
   document.querySelector(".popup-add-dict").classList.remove("active")
+  clearInput("dict-name-input")
 })
 
 document.querySelector(".popup-add-dict .popup-add-btn").addEventListener("click", function(){
@@ -38,6 +40,7 @@ document.querySelector(".popup-add-dict .popup-add-btn").addEventListener("click
 
 document.querySelector(".popup-edit-dict .popup-close-btn").addEventListener("click", function(){
   document.querySelector(".popup-edit-dict").classList.remove("active")
+  clearInput("dict-info")
 })
 
 function getDictionaryName(){
@@ -48,13 +51,14 @@ function getEditForm(dictID){
   document.querySelector(".popup-edit-dict").classList.add("active");
 
   dictionaryName = document.getElementById(dictID).childNodes[0].nodeValue;
+  dictionaryWordIndex = fs.readFileSync(dictionaryPath + dictionaryName).toString().split('\n').length - 2;
 
   document.getElementById("popup-edit-dict-h1").innerHTML = `Add a new word in ${dictionaryName}`;
   
   return dictionaryName;
 } 
 
-function getSortedDictionary(){
+function getSortedDictionaryCards(){
   directoryContent = fs.readdirSync(dictionaryPath);
 
   let files = directoryContent.filter((filename) => {
@@ -73,7 +77,7 @@ function getSortedDictionary(){
 
 
 function loadDictionary(){
-  const files = getSortedDictionary();
+  const files = getSortedDictionaryCards();
   const box = document.getElementsByClassName("cards");
 
   for (file in files){
@@ -129,7 +133,7 @@ function addInDictionary(){
 }
 
 function clearInput(className){
-  const elements = document.getElementsByClassName(className);
+  let elements = document.getElementsByClassName(className);
 
   for (let element in elements){
     elements[element].value = "";
@@ -158,27 +162,20 @@ function isDictionaryEmpty(){
 }
 
 function previousBtn(){
-  let inputValues = getInputValuesByClassName("dict-info");
-
   let dictContent = fs.readFileSync(dictionaryPath + dictionaryName).toString().split('\n');
 
   if (!isDictionaryEmpty()) {
     let dictLine = null;
 
-    if (isInputValuesEmpty("dict-info"))
-    {
-      dictLine = Object.values(dictContent)[dictContent.length - 2];
+    if (isInputValuesEmpty("dict-info")){
+      dictLine = Object.values(dictContent)[dictionaryWordIndex];
     }
-    else
-    {
-      dictLine = Object.values(dictContent)[getDictionaryWordIndex(dictContent, inputValues) - 1];
+    else{
+      dictionaryWordIndex--;
+      dictLine = Object.values(dictContent)[dictionaryWordIndex];
     }
     setInput(dictLine.split('/'));
   }
-}
-
-function getDictionaryWordIndex(dictContent, inputValues){
-  return dictContent.indexOf(inputValues.join("/"));
 }
 
 function setInput(dictLine){
@@ -189,14 +186,32 @@ function setInput(dictLine){
 }
 
 function nextBtn(){
-  let inputValues = getInputValuesByClassName("dict-info");
-
   let dictContent = fs.readFileSync(dictionaryPath + dictionaryName).toString().split('\n');
 
   if ((!isDictionaryEmpty()) && (!isInputValuesEmpty("dict-info"))) {
     let dictLine = null;
 
-    dictLine = Object.values(dictContent)[getDictionaryWordIndex(dictContent, inputValues) + 1];
+    dictionaryWordIndex++;
+    dictLine = Object.values(dictContent)[dictionaryWordIndex];
     setInput(dictLine.split('/'));
   }
+}
+
+function modifyBtn(){
+  if (!isInputValuesEmpty("dict-info")){
+    let inputValues = getInputValuesByClassName("dict-info");
+
+    modifyInDictionary(inputValues);
+  }
+  else alert("hey!")
+}
+
+function modifyInDictionary(modifyLine){
+  let content = fs.readFileSync(dictionaryPath + dictionaryName).toString();
+
+  let modifiedContent = content.replace(Object.values(content.split('\n'))[dictionaryWordIndex], modifyLine.join('/'));
+
+  fs.writeFile(dictionaryPath + dictionaryName, modifiedContent, function (err) {
+    if (err) throw err;
+  });
 }

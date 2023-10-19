@@ -407,6 +407,8 @@ body.dark .switch::before {
 
 /* Popup */
 
+.popup-edit-dict,
+.popup-learn,
 .popup-add-dict{
   position: absolute;
   top: -150%;
@@ -415,13 +417,15 @@ body.dark .switch::before {
   transform: translate(-50%,-50%) scale(1.25);
   width: 380px;
   padding: 20px 30px;
-  background: burlywood;
+  background: var(--body-color);
   box-shadow: 100px 100px 100px 100px rgba(0, 0, 0, 0.15);
   transition: top 0ms ease-in-out 200ms,
               opacity 200ms ease-in-out 0ms,
               transform 200ms ease-in-out 0ms;
 }
 
+.popup-edit-dict.active,
+.popup-learn.active,
 .popup-add-dict.active{
   top:50%;
   opacity: 1;
@@ -481,32 +485,4 @@ body.dark .switch::before {
   cursor: pointer;
   color: #fff;
   position: relative;
-}
-
-
-
-
-
-.popup-edit-dict{
-  position: absolute;
-  top: -150%;
-  left: 50%;
-  opacity: 0;
-  transform: translate(-50%,-50%) scale(1.25);
-  width: 380px;
-  padding: 20px 30px;
-  background: burlywood;
-  box-shadow: 100px 100px 100px 100px rgba(0, 0, 0, 0.15);
-  transition: top 0ms ease-in-out 200ms,
-              opacity 200ms ease-in-out 0ms,
-              transform 200ms ease-in-out 0ms;
-}
-
-.popup-edit-dict.active{
-  top:50%;
-  opacity: 1;
-  transform: translate(-50%,-50%) scale(1);
-  transition: top 0ms ease-in-out 0ms,
-              opacity 200ms ease-in-out 0ms,
-              transform 200ms ease-in-out 0ms;
 }

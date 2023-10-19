@@ -43,6 +43,15 @@ document.querySelector(".popup-edit-dict .popup-close-btn").addEventListener("cl
   clearInput("dict-info")
 })
 
+document.querySelector(".popup-learn .popup-close-btn").addEventListener("click", function(){
+  document.querySelector(".popup-learn").classList.remove("active")
+  clearInput("dict-name-input")
+})
+
+function getLearnForm(){
+  document.querySelector(".popup-learn").classList.add("active");
+}
+
 function getDictionaryName(){
   document.querySelector(".popup-add-dict").classList.add("active");
 }
@@ -91,7 +100,7 @@ function loadDictionary(){
       </div>
       <div class="card-btns">
       <button class="button" id="dictID_${file}" onclick="getEditForm(this.id)">Edit</button>
-      <button class="button">Learn</button>
+      <button class="button" onclick="getLearnForm()">Learn</button>
       </div>`;
 
     box[0].appendChild(dictionaryItem);

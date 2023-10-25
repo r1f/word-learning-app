@@ -4,7 +4,32 @@ const toggle = document.querySelector(".toggle");
 const modeSwitch = document.querySelector(".toggle-switch");
 const modeText = document.querySelector(".mode-text");
 
+const sidebarItems = document.querySelectorAll(".nav-link");
+const sections = document.querySelectorAll('section');
 
+sidebarItems.forEach((item) => {
+  item.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    sidebarItems.forEach((sidebarItem) => {
+      sidebarItem.classList.remove('active');
+    });
+
+    sections.forEach((section) => {
+      section.style.display = 'none';
+    });
+
+    const href = event.currentTarget.querySelector('a').getAttribute('href').substring(1);
+    const selectedSection = document.getElementById(href);
+
+    event.currentTarget.classList.add('active');
+
+    selectedSection.style.display = 'block';
+  });
+});
+
+
+const { BrowserWindow } = require('electron');
 const fs = require('fs');
 const { type } = require('os');
 const path = require('path');
